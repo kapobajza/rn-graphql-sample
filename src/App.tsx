@@ -1,3 +1,4 @@
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -11,17 +12,24 @@ import { TranslationProvider } from './translation/Provider';
 
 const services = getServices();
 
+const client = new ApolloClient({
+  uri: 'https://graphqlzero.almansi.me/api',
+  cache: new InMemoryCache(),
+});
+
 const App = () => {
   return (
     <SafeAreaProvider>
       <ServicesProvider services={services}>
-        <TranslationProvider language={Language.En}>
-          <ThemeProvider theme={defaultTheme}>
-            <NavigationContainer>
-              <MainRouter />
-            </NavigationContainer>
-          </ThemeProvider>
-        </TranslationProvider>
+        <ApolloProvider client={client}>
+          <TranslationProvider language={Language.En}>
+            <ThemeProvider theme={defaultTheme}>
+              <NavigationContainer>
+                <MainRouter />
+              </NavigationContainer>
+            </ThemeProvider>
+          </TranslationProvider>
+        </ApolloProvider>
       </ServicesProvider>
     </SafeAreaProvider>
   );

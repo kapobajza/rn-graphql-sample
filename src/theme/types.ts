@@ -1,6 +1,7 @@
 import { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 import { colors } from './colors';
+import { styles } from './styles';
 
 export type Colors = typeof colors;
 
@@ -9,6 +10,7 @@ export type ThemeName = 'dark' | 'white';
 export interface Theme {
   colors: Colors;
   name: ThemeName;
+  styles: typeof styles;
 }
 
 export type ComponentStyle = TextStyle | ViewStyle | undefined | null;
