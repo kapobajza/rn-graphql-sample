@@ -1,0 +1,10 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "\nRunning eslint...\n"
+yarn lint
+echo "\nRunning prettier...\n"
+npx prettier --write "**/*.{js,jsx,ts,tsx}"
+echo "\nRunning typescript compiler...\n"
+npx tsc
+
