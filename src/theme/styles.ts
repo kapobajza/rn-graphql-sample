@@ -25,4 +25,7 @@ export const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
   },
+  flexGrow: {
+    flexGrow: 1,
+  },
 });

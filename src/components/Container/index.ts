@@ -1,3 +1,4 @@
 import SafeAreaView from './SafeAreaView';
+import Box from './Box';
 
-export { SafeAreaView };
+export { SafeAreaView, Box };

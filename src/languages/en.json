@@ -1,3 +1,5 @@
 {
-  "postsHeader": "Posts"
+  "postsHeader": "Posts",
+  "back": "Back",
+  "authoredBy": "Author: {0}"
 }

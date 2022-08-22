@@ -1,16 +1,26 @@
-import { StyleProp, TextStyle, ViewStyle } from 'react-native';
+import { Insets, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
-import { colors } from './colors';
+import { ApplyColorTransparencyFn, colors } from './colors';
+import { FontSize } from './fonts';
 import { styles } from './styles';
 
 export type Colors = typeof colors;
 
 export type ThemeName = 'dark' | 'white';
 
+export interface ThemeSizes {
+  navigationBarHeight: number;
+  buttonMediumHitSlop: Insets;
+}
+
 export interface Theme {
   colors: Colors;
   name: ThemeName;
   styles: typeof styles;
+  spacing: (value: number) => number;
+  sizes: ThemeSizes;
+  fontSize: FontSize;
+  applyColorTransparency: ApplyColorTransparencyFn;
 }
 
 export type ComponentStyle = TextStyle | ViewStyle | undefined | null;

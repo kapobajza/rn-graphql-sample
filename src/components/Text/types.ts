@@ -6,6 +6,10 @@ export type PartialTextProps = Partial<{
   color: TextStyle['color'];
   textAlign: TextStyle['textAlign'];
   textTransform: TextStyle['textTransform'];
+  fontWeight: TextStyle['fontWeight'];
+  opacity: TextStyle['opacity'];
 }>;
 
-export interface TextProps extends RNTextProps, PartialTextProps {}
+export interface TextProps extends RNTextProps, PartialTextProps {
+  type?: 'normal' | 'description' | 'sub-heading';
+}
