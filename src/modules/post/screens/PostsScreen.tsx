@@ -12,13 +12,15 @@ import { useTranslation } from '../../../translation/Provider';
 import { Post } from '../../../types/models';
 import useGetPostsQuery from '../hooks/useGetPostsQuery';
 import { MainStackParamList } from '../../../navigation/types';
+import { useModal } from '../../../components/Modal';
 
 interface Props extends NativeStackScreenProps<MainStackParamList, 'Posts'> {}
 
 const PostsScreen: FC<Props> = ({ navigation }) => {
-  const { colors, spacing, fontSize } = useTheme();
+  const { colors, spacing, fontSize, sizes } = useTheme();
   const { strings } = useTranslation();
   const { data, loading } = useGetPostsQuery();
+  const { openModal } = useModal();
 
   const renderItem: ListRenderItem<Post> = ({ item }) => {
     const onItemPress = () => {
@@ -40,9 +42,23 @@ const PostsScreen: FC<Props> = ({ navigation }) => {
     );
   };
 
+  const onAddPostPress = () => openModal('AddPost');
+
+  const renderAddPostComponent = () => (
+    <AddPostButton hitSlop={sizes.buttonMediumHitSlop} onPress={onAddPostPress}>
+      <Text color={colors['#0072B1']} fontWeight="bold" type="description">
+        {strings.add}
+      </Text>
+    </AddPostButton>
+  );
+
   return (
     <SafeAreaView>
-      <TitledNavBar title={strings.postsHeader} withoutBackButton />
+      <TitledNavBar
+        title={strings.postsHeader}
+        renderRightComponent={renderAddPostComponent}
+        withoutBackButton
+      />
       <FlatList
         data={data}
         renderItem={renderItem}
@@ -62,3 +78,5 @@ const Container = styled(TouchableOpacity)(({ spacing, colors }) => ({
   borderBottomWidth: 1,
   borderBottomColor: colors['#D3D3D3'],
 }));
+
+const AddPostButton = styled(TouchableOpacity)(() => ({}));

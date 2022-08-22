@@ -2,5 +2,10 @@
   "postsHeader": "Posts",
   "back": "Back",
   "authoredBy": "Author: {0}",
-  "postDetails": "Post Details"
+  "postDetails": "Post Details",
+  "add": "Add",
+  "save": "Save",
+  "validationMessagesRequired": "{0} is required",
+  "addPostTitle": "Title",
+  "addPostBody": "Body"
 }

@@ -6,7 +6,7 @@ import { FillLoading } from '../Loading';
 import Box from './Box';
 
 interface Props {
-  loading: boolean;
+  loading?: boolean;
   spacing?: number;
 }
 
@@ -15,7 +15,7 @@ const Container: FC<PropsWithChildren<Props>> = (props) => {
   const { spacing: containerSpacing = spacing(2), loading, children } = props;
 
   return (
-    <Box padding={containerSpacing} flex={1}>
+    <Box margin={containerSpacing} flex={1}>
       {loading ? <FillLoading /> : children}
     </Box>
   );

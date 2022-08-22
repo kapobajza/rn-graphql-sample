@@ -1,4 +1,4 @@
-import { Insets, StyleProp, TextStyle, ViewStyle } from 'react-native';
+import { Insets, ScaledSize, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 import { ApplyColorTransparencyFn, colors } from './colors';
 import { FontSize } from './fonts';
@@ -11,6 +11,8 @@ export type ThemeName = 'dark' | 'white';
 export interface ThemeSizes {
   navigationBarHeight: number;
   buttonMediumHitSlop: Insets;
+  screenSize: ScaledSize;
+  windowSize: ScaledSize;
 }
 
 export interface Theme {

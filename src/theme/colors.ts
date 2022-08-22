@@ -4,6 +4,9 @@ export const colors = {
   '#D3D3D3': '#D3D3D3',
   '#C3C3C3': '#C3C3C3',
   '#1E2124': '#1E2124',
+  '#0072B1': '#0072B1',
+  '#FA4343': '#FA4343',
+  '#333637': '#333637',
 };
 
 export const hexToRGB = (color: string) => {

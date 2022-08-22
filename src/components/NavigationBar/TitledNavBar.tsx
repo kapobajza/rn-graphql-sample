@@ -5,11 +5,11 @@ import { Text } from '../Text';
 import { NavigationBarProps } from './types';
 import NavigationBar from './NavigationBar';
 
-interface Props extends Pick<NavigationBarProps, 'withoutBackButton'> {
+interface Props extends Pick<NavigationBarProps, 'withoutBackButton' | 'renderRightComponent'> {
   title: string;
 }
 
-const TitledNavBar: FC<Props> = ({ withoutBackButton, title }) => {
+const TitledNavBar: FC<Props> = ({ withoutBackButton, title, renderRightComponent }) => {
   const renderCenterComponent = () => (
     <Text type="description" fontWeight="bold" textAlign="center">
       {title}
@@ -20,6 +20,7 @@ const TitledNavBar: FC<Props> = ({ withoutBackButton, title }) => {
     <NavigationBar
       withoutBackButton={withoutBackButton}
       renderCenterComponent={renderCenterComponent}
+      renderRightComponent={renderRightComponent}
     />
   );
 };

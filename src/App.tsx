@@ -2,6 +2,8 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { ModalProvider, ModalStack } from './components/Modal';
+import AddPostModal from './modules/post/components/AddPostModal';
 import MainRouter from './navigation/MainRouter';
 import NavigationContainer from './navigation/NavigationContainer';
 import { getServices, ServicesProvider } from './services/Provider';
@@ -17,6 +19,10 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+const modalStack: ModalStack = {
+  AddPost: AddPostModal,
+};
+
 const App = () => {
   return (
     <SafeAreaProvider>
@@ -24,9 +30,11 @@ const App = () => {
         <ApolloProvider client={client}>
           <TranslationProvider language={Language.En}>
             <ThemeProvider theme={defaultTheme}>
-              <NavigationContainer>
-                <MainRouter />
-              </NavigationContainer>
+              <ModalProvider stack={modalStack}>
+                <NavigationContainer>
+                  <MainRouter />
+                </NavigationContainer>
+              </ModalProvider>
             </ThemeProvider>
           </TranslationProvider>
         </ApolloProvider>

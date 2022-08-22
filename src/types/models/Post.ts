@@ -14,7 +14,13 @@ export interface GetPostsRes {
 }
 
 export interface GetPostsVars {
-  options: { paginate: Paginate };
+  options: {
+    paginate: Paginate;
+    sort: {
+      field: keyof Post;
+      order: 'ASC' | 'DESC';
+    };
+  };
 }
 
 export interface GetPostDetailsRes {
@@ -23,4 +29,13 @@ export interface GetPostDetailsRes {
 
 export interface GetPostDetailsVars {
   id: string;
+}
+
+export interface CreatePostParams {
+  title: string;
+  body: string;
+}
+
+export interface CreatePostVars {
+  input: CreatePostParams;
 }

@@ -8,6 +8,10 @@ const useGetPostsQuery = (params: Paginate = { page: 1, limit: 10 }) => {
     variables: {
       options: {
         paginate: params,
+        sort: {
+          field: 'title',
+          order: 'ASC',
+        },
       },
     },
   });
