@@ -17,8 +17,8 @@ export const ThemeProvider: FC<PropsWithChildren<{ theme: Theme }>> = ({
   const contextValue = useMemo<IThemeContext>(
     () => ({
       ...theme,
-      setTheme: valueOrCb => {
-        setTheme(t => {
+      setTheme: (valueOrCb) => {
+        setTheme((t) => {
           let themeName: ThemeName;
           let newColors: Colors = colors;
 
