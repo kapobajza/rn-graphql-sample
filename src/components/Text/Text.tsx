@@ -56,6 +56,11 @@ const StyledText = styled(RNText)<PartialTextProps & Pick<TextProps, 'type'>>(
         fontWeight = 'bold';
         break;
 
+      case 'heading':
+        finalFontSize = fontSize.Size24;
+        fontWeight = 'bold';
+        break;
+
       default:
         break;
     }

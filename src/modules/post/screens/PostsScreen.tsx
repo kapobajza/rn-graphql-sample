@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { ListRenderItem, TouchableOpacity } from 'react-native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { Box, SafeAreaView } from '../../../components/Container';
 import { FlatList } from '../../../components/List';
@@ -10,15 +11,22 @@ import { styled } from '../../../theme/styled';
 import { useTranslation } from '../../../translation/Provider';
 import { Post } from '../../../types/models';
 import useGetPostsQuery from '../hooks/useGetPostsQuery';
+import { MainStackParamList } from '../../../navigation/types';
 
-const PostsScreen = () => {
+interface Props extends NativeStackScreenProps<MainStackParamList, 'Posts'> {}
+
+const PostsScreen: FC<Props> = ({ navigation }) => {
   const { colors, spacing, fontSize } = useTheme();
   const { strings } = useTranslation();
   const { data, loading } = useGetPostsQuery();
 
   const renderItem: ListRenderItem<Post> = ({ item }) => {
+    const onItemPress = () => {
+      navigation.navigate('PostDetails', { id: item.id });
+    };
+
     return (
-      <Container activeOpacity={0.6}>
+      <Container activeOpacity={0.6} onPress={onItemPress}>
         <Box marginBottom={spacing(2)}>
           <Text type="sub-heading">{item.title}</Text>
           <Text numberOfLines={3} color={colors['#1E2124']}>

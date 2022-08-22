@@ -8,11 +8,19 @@ export interface Post {
   user: User;
 }
 
-export interface GetPosts {
+export interface GetPostsRes {
   posts: { data: Post[] };
   meta: { totalCount: number };
 }
 
-export interface GetPostsOpts {
+export interface GetPostsVars {
   options: { paginate: Paginate };
+}
+
+export interface GetPostDetailsRes {
+  post: Post;
+}
+
+export interface GetPostDetailsVars {
+  id: string;
 }

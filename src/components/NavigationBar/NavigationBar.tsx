@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { TouchableOpacity, View, ViewProps } from 'react-native';
 
@@ -17,11 +18,14 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
 }) => {
   const { strings } = useTranslation();
   const { fontSize, sizes } = useTheme();
+  const navigation = useNavigation();
+
+  const onBackPress = () => navigation.goBack();
 
   return (
     <Container>
       {!withoutBackButton ? (
-        <BackButton activeOpacity={0.8} hitSlop={sizes.buttonMediumHitSlop}>
+        <BackButton activeOpacity={0.8} hitSlop={sizes.buttonMediumHitSlop} onPress={onBackPress}>
           <Text fontSize={fontSize.Size12}>{strings.back}</Text>
         </BackButton>
       ) : null}

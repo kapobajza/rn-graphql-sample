@@ -11,5 +11,5 @@ export type PartialTextProps = Partial<{
 }>;
 
 export interface TextProps extends RNTextProps, PartialTextProps {
-  type?: 'normal' | 'description' | 'sub-heading';
+  type?: 'normal' | 'description' | 'sub-heading' | 'heading';
 }
