@@ -9,7 +9,8 @@
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "prepare": "husky install",
-    "dev": "chmod +x ./start.sh && ./start.sh"
+    "dev": "chmod +x ./start.sh && ./start.sh",
+    "server": "cd server && npx json-graphql-server db.json && cd .."
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
