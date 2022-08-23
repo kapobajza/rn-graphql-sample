@@ -17,6 +17,7 @@ const Text: FC<PropsWithChildren<TextProps>> = (props) => {
     children,
     fontWeight,
     opacity,
+    lineHeight,
     ...rest
   } = props;
 
@@ -29,6 +30,7 @@ const Text: FC<PropsWithChildren<TextProps>> = (props) => {
       textTransform={textTransform}
       fontWeight={fontWeight}
       opacity={opacity}
+      lineHeight={lineHeight}
       {...rest}>
       {children}
     </StyledText>

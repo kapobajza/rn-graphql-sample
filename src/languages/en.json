@@ -5,7 +5,12 @@
   "postDetails": "Post Details",
   "add": "Add",
   "save": "Save",
+  "info": "Info",
+  "success": "Success",
+  "errorsTitle": "Error",
+  "errorsGeneralMessage": "An error occurred",
   "validationMessagesRequired": "{0} is required",
   "addPostTitle": "Title",
-  "addPostBody": "Body"
+  "addPostBody": "Body",
+  "addPostSuccess": "Post added successfully!"
 }

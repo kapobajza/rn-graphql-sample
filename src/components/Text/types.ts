@@ -8,6 +8,7 @@ export type PartialTextProps = Partial<{
   textTransform: TextStyle['textTransform'];
   fontWeight: TextStyle['fontWeight'];
   opacity: TextStyle['opacity'];
+  lineHeight: TextStyle['lineHeight'];
 }>;
 
 export interface TextProps extends RNTextProps, PartialTextProps {

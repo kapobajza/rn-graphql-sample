@@ -13,13 +13,14 @@ import { Post } from '../../../types/models';
 import useGetPostsQuery from '../hooks/useGetPostsQuery';
 import { MainStackParamList } from '../../../navigation/types';
 import { useModal } from '../../../components/Modal';
+import { Avatar } from '../../../components/Image';
 
 interface Props extends NativeStackScreenProps<MainStackParamList, 'Posts'> {}
 
 const PostsScreen: FC<Props> = ({ navigation }) => {
   const { colors, spacing, fontSize, sizes } = useTheme();
   const { strings } = useTranslation();
-  const { data, loading } = useGetPostsQuery();
+  const { data, loading, error } = useGetPostsQuery();
   const { openModal } = useModal();
 
   const renderItem: ListRenderItem<Post> = ({ item }) => {
@@ -35,9 +36,14 @@ const PostsScreen: FC<Props> = ({ navigation }) => {
             {item.body}
           </Text>
         </Box>
-        <Text fontSize={fontSize.Size12} opacity={0.6}>
-          {strings.formatString(strings.authoredBy, item.user.name)}
-        </Text>
+        <Box flexDirection="row" alignItems="center">
+          <Box marginRight={spacing(1)}>
+            <Text fontSize={fontSize.Size12} opacity={0.6}>
+              {strings.formatString(strings.authoredBy, item.User.name)}
+            </Text>
+          </Box>
+          <Avatar uri={item.User.imageUrl} size={20} />
+        </Box>
       </Container>
     );
   };
@@ -59,12 +65,7 @@ const PostsScreen: FC<Props> = ({ navigation }) => {
         renderRightComponent={renderAddPostComponent}
         withoutBackButton
       />
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        initialLoading={loading}
-        showsVerticalScrollIndicator={false}
-      />
+      <FlatList data={data} renderItem={renderItem} initialLoading={loading} error={error} />
     </SafeAreaView>
   );
 };

@@ -1,19 +1,17 @@
 import { gql } from '@apollo/client';
 
+export const GET_POSTS_NAME = 'GetPosts';
+
 export const GET_POSTS = gql`
-  query GetPosts($options: PageQueryOptions) {
-    posts(options: $options) {
-      data {
+  query ${GET_POSTS_NAME}($page: Int, $perPage: Int, $sortField: String, $sortOrder: String) {
+    allPosts(page: $page, perPage: $perPage, sortField: $sortField, sortOrder: $sortOrder) {
+      id
+      title
+      body
+      User {
         id
-        title
-        body
-        user {
-          id
-          name
-        }
-      }
-      meta {
-        totalCount
+        name
+        imageUrl
       }
     }
   }

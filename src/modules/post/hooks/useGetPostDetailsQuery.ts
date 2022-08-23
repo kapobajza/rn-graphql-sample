@@ -13,7 +13,7 @@ const useGetPostDetailsQuery = (id: string) => {
     },
   );
 
-  const { post } = data || {};
+  const { Post: post } = data || {};
 
   return {
     ...otherParams,

@@ -8,6 +8,7 @@ import { useTranslation } from '../../../translation/Provider';
 import { MainStackParamList } from '../../../navigation/types';
 import useGetPostDetailsQuery from '../hooks/useGetPostDetailsQuery';
 import { useTheme } from '../../../theme/Provider';
+import { Avatar } from '../../../components/Image';
 
 interface Props extends NativeStackScreenProps<MainStackParamList, 'PostDetails'> {}
 
@@ -16,7 +17,11 @@ const PostDetailsScreen: FC<Props> = ({ route }) => {
   const { spacing, fontSize, colors } = useTheme();
   const { id } = route.params || {};
   const { data, loading } = useGetPostDetailsQuery(id);
-  const { title, body, user: { name: usersName = '' } = { name: '' } } = data || {};
+  const {
+    title,
+    body,
+    User: { name: usersName = '', imageUrl: usersImageUri = '' } = { name: '', imageUrl: '' },
+  } = data || {};
 
   return (
     <SafeAreaView>
@@ -28,7 +33,7 @@ const PostDetailsScreen: FC<Props> = ({ route }) => {
           </Text>
         </Box>
         <Box
-          marginBottom={spacing(3)}
+          marginBottom={spacing(4)}
           borderBottomWidth={1}
           paddingBottom={spacing(2)}
           borderBottomColor={colors['#C3C3C3']}>
@@ -36,9 +41,14 @@ const PostDetailsScreen: FC<Props> = ({ route }) => {
             {body}
           </Text>
         </Box>
-        <Text textAlign="center" fontSize={fontSize.Size12} opacity={0.6}>
-          {strings.formatString(strings.authoredBy, usersName)}
-        </Text>
+        <Box alignItems="center">
+          <Box marginBottom={spacing(2)}>
+            <Avatar uri={usersImageUri} />
+          </Box>
+          <Text textAlign="center" fontSize={fontSize.Size12} opacity={0.6}>
+            {strings.formatString(strings.authoredBy, usersName)}
+          </Text>
+        </Box>
       </Container>
     </SafeAreaView>
   );

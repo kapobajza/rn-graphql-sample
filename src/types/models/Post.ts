@@ -5,37 +5,27 @@ export interface Post {
   id: string;
   title: string;
   body: string;
-  user: User;
+  createdAt: string;
+  User: User;
 }
 
 export interface GetPostsRes {
-  posts: { data: Post[] };
-  meta: { totalCount: number };
+  allPosts: Post[];
 }
 
-export interface GetPostsVars {
-  options: {
-    paginate: Paginate;
-    sort: {
-      field: keyof Post;
-      order: 'ASC' | 'DESC';
-    };
-  };
-}
+export type GetPostsVars = Paginate<Post>;
 
 export interface GetPostDetailsRes {
-  post: Post;
+  Post: Post;
 }
 
 export interface GetPostDetailsVars {
   id: string;
 }
 
-export interface CreatePostParams {
+export interface CreatePostVars {
   title: string;
   body: string;
-}
-
-export interface CreatePostVars {
-  input: CreatePostParams;
+  createdAt: string;
+  user_id: string;
 }

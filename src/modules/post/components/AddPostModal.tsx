@@ -12,6 +12,7 @@ import { Box } from '../../../components/Container';
 import { useTheme } from '../../../theme/Provider';
 import { Button } from '../../../components/Button';
 import useCreatePostMutation from '../hooks/useCreatePostMutation';
+import { useFlashMessage } from '../../../components/FlashMessage';
 
 interface FormInputs {
   [AddPostField.Title]: string;
@@ -25,14 +26,18 @@ const AddPostModal: FC<ModalComponentProps<'AddPost'>> = ({ closeModal }) => {
     schema: addPostSchema,
   });
   const [addPost, { loading }] = useCreatePostMutation();
+  const { showSuccess } = useFlashMessage();
 
-  const onSavePress = handleSubmit((input) => {
+  const onSavePress = handleSubmit(async (input) => {
     addPost({
       variables: {
-        input,
+        ...input,
+        createdAt: new Date().toISOString(),
+        user_id: 'df7b4181-7850-4ae9-bbbc-ce052c7fa830',
       },
       onCompleted: () => {
         closeModal();
+        showSuccess(strings.addPostSuccess);
       },
     });
   });

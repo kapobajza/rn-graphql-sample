@@ -2,6 +2,7 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { FlashMessageProvider } from './components/FlashMessage';
 import { ModalProvider, ModalStack } from './components/Modal';
 import AddPostModal from './modules/post/components/AddPostModal';
 import MainRouter from './navigation/MainRouter';
@@ -15,7 +16,7 @@ import { TranslationProvider } from './translation/Provider';
 const services = getServices();
 
 const client = new ApolloClient({
-  uri: 'https://graphqlzero.almansi.me/api',
+  uri: 'http://localhost:3000/',
   cache: new InMemoryCache(),
 });
 
@@ -30,11 +31,13 @@ const App = () => {
         <ApolloProvider client={client}>
           <TranslationProvider language={Language.En}>
             <ThemeProvider theme={defaultTheme}>
-              <ModalProvider stack={modalStack}>
-                <NavigationContainer>
-                  <MainRouter />
-                </NavigationContainer>
-              </ModalProvider>
+              <FlashMessageProvider>
+                <ModalProvider stack={modalStack}>
+                  <NavigationContainer>
+                    <MainRouter />
+                  </NavigationContainer>
+                </ModalProvider>
+              </FlashMessageProvider>
             </ThemeProvider>
           </TranslationProvider>
         </ApolloProvider>

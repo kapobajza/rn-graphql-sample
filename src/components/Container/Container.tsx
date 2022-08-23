@@ -1,24 +1,35 @@
 import React, { FC, PropsWithChildren } from 'react';
+import { View } from 'react-native';
 
-import { useTheme } from '../../theme/Provider';
+import { styled } from '../../theme/styled';
 import { FillLoading } from '../Loading';
-
-import Box from './Box';
 
 interface Props {
   loading?: boolean;
   spacing?: number;
+  center?: boolean;
 }
 
 const Container: FC<PropsWithChildren<Props>> = (props) => {
-  const { spacing } = useTheme();
-  const { spacing: containerSpacing = spacing(2), loading, children } = props;
+  const { spacing: containerSpacing, loading, children, center } = props;
 
   return (
-    <Box margin={containerSpacing} flex={1}>
+    <Root spacing={containerSpacing} center={center}>
       {loading ? <FillLoading /> : children}
-    </Box>
+    </Root>
   );
 };
 
 export default Container;
+
+const Root = styled(View)<Pick<Props, 'spacing' | 'center'>>(
+  ({ spacing, styles }, { center, spacing: containerSpacing }) => ({
+    margin: containerSpacing || spacing(2),
+    flex: 1,
+    ...(center
+      ? {
+          ...styles.fillAndCenter,
+        }
+      : undefined),
+  }),
+);

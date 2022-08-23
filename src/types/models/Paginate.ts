@@ -1,4 +1,6 @@
-export interface Paginate {
+export interface Paginate<TModel = unknown> {
   page?: number;
-  limit?: number;
+  perPage?: number;
+  sortField?: keyof TModel;
+  sortOrder?: 'ASC' | 'DESC';
 }
