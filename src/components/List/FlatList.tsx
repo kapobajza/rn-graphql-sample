@@ -1,15 +1,16 @@
-import { FlatList as RNFlatList, FlatListProps, ViewStyle } from 'react-native';
+import { FlatList as RNFlatList, FlatListProps, RefreshControl, ViewStyle } from 'react-native';
 import React, { useMemo } from 'react';
 
-import { FillLoading } from '../Loading';
+import { FillLoading, Loading } from '../Loading';
 import { useTheme } from '../../theme/Provider';
-import { Container } from '../Container';
+import { Box, Container } from '../Container';
 import { Text } from '../Text';
 import { useTranslation } from '../../translation/Provider';
 
 interface Props<TItem> extends FlatListProps<TItem> {
   initialLoading?: boolean;
   error?: Error;
+  isFetchingNextPage?: boolean;
 }
 
 const FlatList = <TItem extends unknown>({
@@ -17,9 +18,12 @@ const FlatList = <TItem extends unknown>({
   initialLoading,
   error,
   showsVerticalScrollIndicator = false,
+  isFetchingNextPage,
+  onRefresh,
+  refreshing,
   ...props
 }: Props<TItem>) => {
-  const { styles, colors } = useTheme();
+  const { styles, colors, spacing } = useTheme();
   const { strings } = useTranslation();
 
   const { ListFooter, ListFooterComponentStyle, contentContainerStyle } = useMemo(() => {
@@ -27,6 +31,11 @@ const FlatList = <TItem extends unknown>({
       <>
         {initialLoading ? <FillLoading /> : null}
         {ListFooterComponent}
+        {isFetchingNextPage ? (
+          <Box marginVertical={spacing(2)}>
+            <Loading />
+          </Box>
+        ) : null}
       </>
     );
     let style: ViewStyle | undefined;
@@ -42,7 +51,25 @@ const FlatList = <TItem extends unknown>({
       ListFooterComponentStyle: style,
       contentContainerStyle: containerStyle,
     };
-  }, [ListFooterComponent, initialLoading, styles.fillAndCenter, styles.flexGrow]);
+  }, [
+    ListFooterComponent,
+    initialLoading,
+    isFetchingNextPage,
+    spacing,
+    styles.fillAndCenter,
+    styles.flexGrow,
+  ]);
+
+  const RefreshComponent = useMemo(
+    () =>
+      onRefresh ? (
+        <RefreshControl
+          onRefresh={onRefresh as () => void | undefined}
+          refreshing={refreshing as boolean}
+        />
+      ) : undefined,
+    [onRefresh, refreshing],
+  );
 
   if (error) {
     return (
@@ -59,6 +86,7 @@ const FlatList = <TItem extends unknown>({
       ListFooterComponent={ListFooter}
       ListFooterComponentStyle={ListFooterComponentStyle}
       contentContainerStyle={contentContainerStyle}
+      refreshControl={RefreshComponent}
       {...props}
       showsVerticalScrollIndicator={showsVerticalScrollIndicator}
     />

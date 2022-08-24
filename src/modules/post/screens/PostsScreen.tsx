@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { ListRenderItem, TouchableOpacity } from 'react-native';
+import React, { FC, useMemo } from 'react';
+import { ListRenderItem, TouchableOpacity, ViewStyle } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { Box, SafeAreaView } from '../../../components/Container';
@@ -20,7 +20,8 @@ interface Props extends NativeStackScreenProps<MainStackParamList, 'Posts'> {}
 const PostsScreen: FC<Props> = ({ navigation }) => {
   const { colors, spacing, fontSize, sizes } = useTheme();
   const { strings } = useTranslation();
-  const { data, loading, error } = useGetPostsQuery();
+  const { data, initialLoading, error, fetchNextPage, isFetchingNextPage, isRefetching, refetch } =
+    useGetPostsQuery();
   const { openModal } = useModal();
 
   const renderItem: ListRenderItem<Post> = ({ item }) => {
@@ -58,6 +59,24 @@ const PostsScreen: FC<Props> = ({ navigation }) => {
     </AddPostButton>
   );
 
+  const onEndReached = () => {
+    fetchNextPage({
+      updateQuery(prev, { fetchMoreResult }) {
+        return {
+          ...prev,
+          allPosts: [...prev.allPosts, ...fetchMoreResult.allPosts],
+        };
+      },
+    });
+  };
+
+  const headerStyle = useMemo<ViewStyle>(() => ({ marginLeft: spacing(2) }), [spacing]);
+
+  const onRefresh = () =>
+    refetch({
+      page: 0,
+    });
+
   return (
     <SafeAreaView>
       <TitledNavBar
@@ -65,7 +84,17 @@ const PostsScreen: FC<Props> = ({ navigation }) => {
         renderRightComponent={renderAddPostComponent}
         withoutBackButton
       />
-      <FlatList data={data} renderItem={renderItem} initialLoading={loading} error={error} />
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        initialLoading={initialLoading}
+        error={error}
+        isFetchingNextPage={isFetchingNextPage}
+        onEndReached={onEndReached}
+        ListHeaderComponentStyle={headerStyle}
+        refreshing={isRefetching}
+        onRefresh={onRefresh}
+      />
     </SafeAreaView>
   );
 };

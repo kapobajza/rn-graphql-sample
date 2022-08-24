@@ -1,7 +1,8 @@
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client';
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { apolloClient } from './apollo';
 import { FlashMessageProvider } from './components/FlashMessage';
 import { ModalProvider, ModalStack } from './components/Modal';
 import AddPostModal from './modules/post/components/AddPostModal';
@@ -15,11 +16,6 @@ import { TranslationProvider } from './translation/Provider';
 
 const services = getServices();
 
-const client = new ApolloClient({
-  uri: 'http://localhost:3000/',
-  cache: new InMemoryCache(),
-});
-
 const modalStack: ModalStack = {
   AddPost: AddPostModal,
 };
@@ -28,7 +24,7 @@ const App = () => {
   return (
     <SafeAreaProvider>
       <ServicesProvider services={services}>
-        <ApolloProvider client={client}>
+        <ApolloProvider client={apolloClient}>
           <TranslationProvider language={Language.En}>
             <ThemeProvider theme={defaultTheme}>
               <FlashMessageProvider>
