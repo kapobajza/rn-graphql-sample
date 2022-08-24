@@ -26,7 +26,7 @@ yarn ios
 Or on Android:
 
 ```
-yarn Android
+yarn android
 ```
 
 You would also have to run the fake GraphQL server, which you can do by running:
