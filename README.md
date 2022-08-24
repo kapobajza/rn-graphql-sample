@@ -3,7 +3,7 @@
 This is a sample React Native app, using a fake GraphQL API server ([json-graphql-server](https://github.com/marmelab/json-graphql-server)). 
 It is a small app where you can browse through a list of posts, see details of each individual post and add new posts.
 
-![image](https://im.ezgif.com/tmp/ezgif-1-b46ce8c23e.gif)
+![image](/docs/demo.gif)
 
 In order to start the app, you would have first to install dependencies:
 
